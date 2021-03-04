@@ -244,6 +244,8 @@ function showLogIn(show) {
   } else {
     $("#divLogin").hide();
   }
+
+  $("#divLogin input").val("");
 }
 
 function showLoggedIn(show) {
@@ -260,6 +262,8 @@ function showRegister(show) {
   } else {
     $("#divRegister").hide();
   }
+
+  $("#divRegister input").val("");
 }
 
 function showVerifyEmail(show) {
@@ -268,6 +272,8 @@ function showVerifyEmail(show) {
   } else {
     $("#divVerifyEmail").hide();
   }
+
+  $("#divVerifyEmail input").val("");
 }
 
 function getCognitoIdentityCredentials(idToken) {
