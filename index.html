@@ -3,6 +3,8 @@
 
 <head>
   <title>Oh POC Secure API</title>
+  <meta name="google-signin-client_id"
+    content="453520064074-f5aqboq7ba6iu501cqtqi16tn0d8fa0c.apps.googleusercontent.com">
 
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -11,6 +13,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
     crossorigin="anonymous"></script>
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 
   <script src="./script/jquery.min.js"></script>
   <script src="./lib/axios/dist/axios.standalone.js"></script>
@@ -81,6 +85,12 @@
               <button type="button" class="btn btn-primary" id="btnRegister">Register</button>
             </div>
           </div>
+          <br />
+          <div class="row">
+            <div class="col-1">
+              <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
+          </div>
         </div>
         <div id="divLoggedIn">
           <div class="row">
@@ -148,7 +158,7 @@
           </div>
           <div class="row">
             <div class="col-4">
-              <input type="text" class="form-control" id="txtVerificationCode" placeholder="XXXXXX"/>
+              <input type="text" class="form-control" id="txtVerificationCode" placeholder="XXXXXX" />
             </div>
             <div class="col-1">
               <button type="button" class="btn btn-success" id="btnSubmitVerificationCode">Submit</button>
@@ -158,13 +168,16 @@
         <hr />
         <div class="row">
           <div class="col-3">
-            <button class="btn btn-outline-secondary" type="button" id="btnGetAnimals">Get Animals <br />(Public)</button>
+            <button class="btn btn-outline-secondary" type="button" id="btnGetAnimals">Get Animals
+              <br />(Public)</button>
           </div>
           <div class="col-4">
-            <button class="btn btn-outline-primary" type="button" id="btnGetBrands">Get Brands <br />(Unauth + Auth Users)</button>
+            <button class="btn btn-outline-primary" type="button" id="btnGetBrands">Get Brands <br />(Unauth + Auth
+              Users)</button>
           </div>
           <div class="col-4">
-            <button class="btn btn-outline-success" type="button" id="btnGetCryptocurrencies">Get Cryptocurrencies <br />(Auth Users Only)</button>
+            <button class="btn btn-outline-success" type="button" id="btnGetCryptocurrencies">Get Cryptocurrencies
+              <br />(Auth Users Only)</button>
           </div>
         </div>
         <br />
@@ -230,7 +243,7 @@
       </div>
       <div class="col-1">
       </div>
-      <div class="col-1"  style="border-left: dotted #e4dbdb">
+      <div class="col-1" style="border-left: dotted #e4dbdb">
       </div>
       <div class="col-3">
         <label for="txtCognitoUserPoolId" class="form-label">Cognito User Pool Id :</label>
@@ -252,5 +265,4 @@
   </div>
 
 </body>
-
 </html>

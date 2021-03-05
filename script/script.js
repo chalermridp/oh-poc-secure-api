@@ -184,19 +184,27 @@ function getCurrentLoggedInSession(cognitoUserPoolObject) {
 }
 
 function logOut() {
+  AWS.config.credentials = null;
+
   if (authLoggenInCognitoUser != null) {
     authLoggenInCognitoUser.signOut();
-    AWS.config.credentials = null;
-    updateResultTextArea("success to logout");
-    showLogIn(true);
-    showLoggedIn(false);
-    showRegister(false);
-    showVerifyEmail(false);
 
-    $("#txtAuthAwsAccessKeyId").val("");
-    $("#txtAuthAwsSecretKey").val("");
-    $("#txtAuthAwsSessionToken").val("");
   }
+
+  var googleUser = gapi.auth2.getAuthInstance();
+  if (googleUser != null) {
+    googleUser.signOut();
+  }
+
+  updateResultTextArea("success to logout");
+  showLogIn(true);
+  showLoggedIn(false);
+  showRegister(false);
+  showVerifyEmail(false);
+
+  $("#txtAuthAwsAccessKeyId").val("");
+  $("#txtAuthAwsSecretKey").val("");
+  $("#txtAuthAwsSessionToken").val("");
 }
 
 function registerUser(username, email, password) {
@@ -363,4 +371,43 @@ function getCryptocurrencies() {
 
 function updateResultTextArea(data) {
   $("#txtResult").val(data);
+}
+
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log(profile);
+
+  var authResponse = googleUser.getAuthResponse();
+  console.log(authResponse);
+  var idToken = googleUser.getAuthResponse().id_token;
+
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: cognitoIdentityPoolId,
+    Logins: {
+      'accounts.google.com': idToken
+    }
+  });
+
+  AWS.config.credentials.clearCachedId();
+
+  AWS.config.credentials.get(function (error) {
+    if (error) {
+      updateResultTextArea(error.message);
+    }
+    else {
+      $("#txtAuthAwsAccessKeyId").val(AWS.config.credentials.accessKeyId);
+      $("#txtAuthAwsSecretKey").val(AWS.config.credentials.secretAccessKey);
+      $("#txtAuthAwsSessionToken").val(AWS.config.credentials.sessionToken);
+
+      updateResultTextArea("success to login");
+
+      $("#txtLoggedInAsUsername").val(profile.getName());
+      $("#txtLoggedInAsEmail").val(profile.getEmail());
+
+      showLogIn(false);
+      showLoggedIn(true);
+      showRegister(false);
+      showVerifyEmail(false);
+    }
+  });
 }
