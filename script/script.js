@@ -23,8 +23,8 @@ $(function () {
 
   getCurrentLoggedInSession(cognitoUserPoolObject);
   loginAsUnauthUser();
-  
   $("#btnLoginAsUnauthUser").on("click", function () {
+    cognitoIdentityPoolId = $("#txtCognitoIdentityPoolId").val();
     loginAsUnauthUser();
   });
 
