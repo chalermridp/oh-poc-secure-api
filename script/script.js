@@ -23,6 +23,10 @@ $(function () {
 
   getCurrentLoggedInSession(cognitoUserPoolObject);
   loginAsUnauthUser();
+  
+  $("#btnLoginAsUnauthUser").on("click", function () {
+    loginAsUnauthUser();
+  });
 
   $("#btnLogin").on("click", function () {
     var username = $("#txtUsername").val();
